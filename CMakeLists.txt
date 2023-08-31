@@ -4,4 +4,4 @@ set(PROJECT_NAME HW-dpcpp-4.2)
 
 project(${PROJECT_NAME})
 
-add_executable(${PROJECT_NAME} src/main.cpp src/Data_DrySolid.hpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/Data_Originally.hpp src/Data_DrySolid.hpp)
