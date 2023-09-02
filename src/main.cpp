@@ -87,22 +87,27 @@ int main() {
 		std::cout << "Создан объект 'Text' со строкой '" + str + '\n' << std::endl;
 		std::cout << "Вызов метода 'print()':" << std::endl;
 		std::cout << p_data->print() << std::endl;
+		std::cout << "Вызов метода 'saveTo()':" << std::endl;
+		std::cout << p_data->saveTo(out_file) << std::endl;
 		std::cout << std::endl;
 
 		p_data.reset(new HTML(str));
 		std::cout << "Создан объект 'HTML' со строкой '" + str + '\n' << std::endl;
 		std::cout << "Вызов метода 'print()':" << std::endl;
 		std::cout << p_data->print() << std::endl;
+		std::cout << "Вызов метода 'saveTo()':" << std::endl;
+		std::cout << p_data->saveTo(out_file) << std::endl;
 		std::cout << std::endl;
 
 		p_data.reset(new JSON(str));
 		std::cout << "Создан объект 'JSON' со строкой '" + str + '\n' << std::endl;
 		std::cout << "Вызов метода 'print()':" << std::endl;
 		std::cout << p_data->print() << std::endl;
+		std::cout << "Вызов метода 'saveTo()':" << std::endl;
+		std::cout << p_data->saveTo(out_file) << std::endl;
 		std::cout << std::endl;
 	}
 
-	
 	std::cin.get();
 	return 0;
 }

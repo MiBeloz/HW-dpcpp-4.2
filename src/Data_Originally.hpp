@@ -31,21 +31,21 @@ public:
         if (format_ != Format::kHTML) {
             throw std::runtime_error("Invalid format!");
         }
-        return "<html>" + data_ + "<html/>";
+        return "<html>" + data_ + "<html/>\n";
     }
     std::string printAsText() const override
     {
         if (format_ != Format::kText) {
             throw std::runtime_error("Invalid format!");
         }
-        return data_;
+        return data_ + '\n';
     }
     std::string printAsJSON() const override
     {
         if (format_ != Format::kJSON) {
             throw std::runtime_error("Invalid format!");
         }
-        return "{ \"data\": \"" + data_ + "\"}";
+        return "{ \"data\": \"" + data_ + "\"}\n";
     }
 
 private:

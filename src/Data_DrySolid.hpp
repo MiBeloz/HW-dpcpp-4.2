@@ -2,6 +2,7 @@
 
 #include <string>
 
+
 class MyData {
 public:
 	enum class MyFormat {
@@ -10,19 +11,25 @@ public:
 		kJSON
 	};
 
-	virtual std::string print() const noexcept {
-		return "Ошибка формата! Формат не задан.";
-	};
+	MyData(const MyData&) = delete;
+	MyData(MyData&&) noexcept = delete;
+	MyData& operator=(const MyData&) = delete;
+	MyData& operator=(MyData&&) noexcept = delete;
+
+	virtual std::string print() const noexcept = 0;
+
+	virtual std::string saveTo(std::ostream&) const = 0;
 
 	virtual ~MyData() = default;
 
 protected:
+	MyData() = default;
 	std::string m_data;
 };
 
 class Text : public MyData {
 public:
-	explicit Text(const std::string& data) : MyData() {
+	explicit Text(const std::string& data) {
 		m_data = data;
 	}
 
@@ -31,10 +38,12 @@ public:
 	}
 
 	std::string print() const noexcept override {
-		if (m_format == MyFormat::kText)
-			return m_data;
-		else
-			return MyData::print();
+		return m_data;
+	}
+
+	std::string saveTo(std::ostream& os) const override{
+		os << m_data + '\n';
+		return "Данные записаны в файл.";
 	}
 
 private:
@@ -43,7 +52,7 @@ private:
 
 class HTML : public MyData {
 public:
-	explicit HTML(const std::string& data) : MyData() {
+	explicit HTML(const std::string& data) {
 		m_data = data;
 	}
 
@@ -52,10 +61,12 @@ public:
 	}
 
 	std::string print() const noexcept override {
-		if (m_format == MyFormat::kHTML)
-			return "<html>" + m_data + "<html/>";
-		else
-			return MyData::print();
+		return "<html>" + m_data + "<html/>";
+	}
+
+	std::string saveTo(std::ostream& os) const override {
+		os << "<html>" + m_data + "<html/>\n";
+		return "Данные записаны в файл.";
 	}
 
 private:
@@ -64,7 +75,7 @@ private:
 
 class JSON : public MyData {
 public:
-	explicit JSON(const std::string& data) : MyData() {
+	explicit JSON(const std::string& data) {
 		m_data = data;
 	}
 
@@ -73,10 +84,12 @@ public:
 	}
 
 	std::string print() const noexcept override {
-		if (m_format == MyFormat::kJSON)
-			return "{ \"data\": \"" + m_data + "\" }";
-		else
-			return MyData::print();
+		return "{ \"data\": \"" + m_data + "\" }";
+	}
+
+	std::string saveTo(std::ostream& os) const override {
+		os << "{ \"data\": \"" + m_data + "\" }\n";
+		return "Данные записаны в файл.";
 	}
 
 private:
