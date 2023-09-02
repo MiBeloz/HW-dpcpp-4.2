@@ -2,15 +2,14 @@
 
 #include <string>
 
+enum class MyFormat {
+	kText,
+	kHTML,
+	kJSON
+};
 
 class MyData {
 public:
-	enum class MyFormat {
-		kText,
-		kHTML,
-		kJSON
-	};
-
 	MyData(const MyData&) = delete;
 	MyData(MyData&&) noexcept = delete;
 	MyData& operator=(const MyData&) = delete;
@@ -33,7 +32,7 @@ public:
 		m_data = data;
 	}
 
-	MyData::MyFormat getFormat() {
+	MyFormat getFormat() {
 		return m_format;
 	}
 
@@ -41,13 +40,13 @@ public:
 		return m_data;
 	}
 
-	std::string saveTo(std::ostream& os) const override{
+	std::string saveTo(std::ostream& os) const override {
 		os << m_data + '\n';
 		return "Данные записаны в файл.";
 	}
 
 private:
-	MyData::MyFormat m_format = MyData::MyFormat::kText;
+	MyFormat m_format = MyFormat::kText;
 };
 
 class HTML : public MyData {
@@ -56,7 +55,7 @@ public:
 		m_data = data;
 	}
 
-	MyData::MyFormat getFormat() {
+	MyFormat getFormat() {
 		return m_format;
 	}
 
@@ -70,7 +69,7 @@ public:
 	}
 
 private:
-	MyData::MyFormat m_format = MyData::MyFormat::kHTML;
+	MyFormat m_format = MyFormat::kHTML;
 };
 
 class JSON : public MyData {
@@ -79,7 +78,7 @@ public:
 		m_data = data;
 	}
 
-	MyData::MyFormat getFormat() {
+	MyFormat getFormat() {
 		return m_format;
 	}
 
@@ -93,5 +92,5 @@ public:
 	}
 
 private:
-	MyData::MyFormat m_format = MyData::MyFormat::kJSON;
+	MyFormat m_format = MyFormat::kJSON;
 };
